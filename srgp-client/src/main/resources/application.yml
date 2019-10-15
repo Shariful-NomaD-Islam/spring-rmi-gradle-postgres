@@ -1,0 +1,24 @@
+# Application Properties
+spring:
+  profiles:
+    active: "basic"
+  main:
+    banner-mode: "off"
+
+---
+# Profile Name
+spring:
+  profiles: basic
+
+info:
+  version: 0.0.1
+
+server:
+  port: 9011
+#  servlet:
+#    context-path: /dataaccess
+
+# Application-properties
+rmi:
+  host: localhost
+  port: 8101

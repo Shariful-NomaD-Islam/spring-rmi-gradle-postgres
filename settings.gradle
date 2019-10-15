@@ -1,0 +1,6 @@
+include 'srgp-server'
+include 'srgp-client'
+include 'srgp-commons'
+
+rootProject.name = 'spring-rmi-gradle-postgres'
+

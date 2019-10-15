@@ -1,0 +1,58 @@
+import java.text.SimpleDateFormat
+
+group 'com.nomad.srgp'
+version '0.0.1'
+
+ext {
+    spring_boot_version = '2.0.0.RELEASE'
+    junit_version = '4.12'
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'com.nomad.srgp.client.ClientApplication'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':srgp-commons')
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: "${spring_boot_version}"
+    testCompile group: 'junit', name: 'junit', version: "${junit_version}"
+}
+
+jar {
+    manifest {
+        attributes(
+                'Implementation-Title'  : "RMI-Client",
+                'Implementation-Version': "$version",
+                'Implementation-Vendor' : "NomaD",
+                'Built-By'              : System.properties['user.name'],
+                'Build-Timestamp'       : new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(new Date()),
+                'Created-By'            : "Gradle ${gradle.gradleVersion}",
+                'Build-JDK'             : "${System.properties['java.version']} (${System.properties['java.vendor']} ${System.properties['java.vm.version']})",
+                'Build-OS'              : "${System.properties['os.name']} ${System.properties['os.arch']} ${System.properties['os.version']}",
+                'App-Version'           : "${version}"
+        )
+    }
+}
+
+run {
+    classpath += files('src/main/dist/conf')
+}
+
+startScripts {
+    classpath += files('conf')
+    doLast {
+        unixScript.text = unixScript.text
+                .replaceAll('APP_HOME=', 'export APP_HOME=')
+                .replaceAll('\\$APP_HOME/lib/conf', '\\$APP_HOME/conf')
+        windowsScript.text = windowsScript.text
+                .replaceAll('%APP_HOME%\\\\lib\\\\conf', '%APP_HOME%\\\\conf')
+    }
+}

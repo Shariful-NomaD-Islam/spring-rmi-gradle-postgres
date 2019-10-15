@@ -1,0 +1,37 @@
+# Application Properties
+spring:
+  profiles:
+    active: "basic"
+  main:
+    banner-mode: "off"
+
+---
+# Profile Name
+spring:
+  profiles: basic
+
+info:
+  version: 0.0.1
+
+#server:
+#  port: 9010
+#  servlet:
+#    context-path: /dataaccess
+
+# Application Properties
+rmi:
+  host: localhost
+  port: 8101
+
+# Database Properties
+# local-db
+local:
+  db-type: postgresql
+  driver: org.postgresql.Driver
+  url: jdbc:postgresql://localhost:5432/testdb
+  user: postgres
+  password: nomad
+  fetchSize: 100
+  poolsize:
+    min: 25
+    max: 50

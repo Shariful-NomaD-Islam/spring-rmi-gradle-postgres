@@ -1,0 +1,25 @@
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+
+    group = 'com.nomad.srgp'
+}
+
+subprojects {
+    apply plugin: 'java'
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    archivesBaseName = "${rootProject.name}-${project.name}"
+
+    task deps {
+        doLast {
+            ['compile', 'runtime'].each { mode ->
+                copy {
+                    from configurations.getByName(mode).files
+                    into "${project.name}/deps"
+                }
+            }
+        }
+    }
+}
