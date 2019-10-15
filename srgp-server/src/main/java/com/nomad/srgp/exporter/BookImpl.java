@@ -21,7 +21,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 @Repository
 public class BookImpl implements BookInterface {
-    private static final Logger log = LoggerFactory.getLogger(PersonImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(BookImpl.class);
 
     @Autowired
     @Qualifier("jdbc")
